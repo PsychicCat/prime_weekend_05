@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    .container(ng-controller="todoForm")
+        .container
+            button.btn.btn-info.get(ng-click='getTasks()') Get Info
+            .col-md-4
+                form(method='POST' ng-submit='postTask()')
+                    div
+                        label(for='text') Task:
+                        input(type='text' name='text' id='text' ng-model='taskData.text')
+                        input.btn.btn-info.post(type='submit' value='Create Task')
+        .container#someContainer
+            - if (task)
+            .task.well.col-md-3(ng-repeat='task in tasks')
+                p.lead(ng-class='{complete: task.complete}' ng-click='completeTask(task)') {{task.text}}
+                button.btn.btn-danger.delete(ng-click='deleteTask(task._id)') X
